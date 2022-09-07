@@ -10,11 +10,20 @@ async function ex6() {
   const query = qs.stringify(
     {
       populate: ["discount"],
-      fields: ["price", "outOfStock"],
+      fields: ["name", "price", "outOfStock"],
       filters: {
-        outOfStock: {
-          $ne: true,
-        },
+        $or: [
+          {
+            outOfStock: {
+              $eq: false,
+            },
+          },
+          {
+            outOfStock: {
+              $null: `null`,
+            },
+          },
+        ],
       },
     },
     {
@@ -27,7 +36,6 @@ async function ex6() {
   const baseUrl = "http://localhost:1337/api/products";
   const response = await fetch(`${baseUrl}?${query}`);
   const result = await response.json();
-  console.log(result.data);
   let sum = 0;
   for (const obj of result.data) {
     const rate = obj.attributes.discount.data;
@@ -47,5 +55,3 @@ async function ex6() {
 //  console.log(sum)}
 
 ex6();
-
-//  http://localhost:1337/api/products?populate=discount&fields[0]=price&fields[1]=outOfStock&filters[outOfStock][$eq]=false

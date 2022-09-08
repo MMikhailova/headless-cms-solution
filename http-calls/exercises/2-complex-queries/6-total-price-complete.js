@@ -46,12 +46,4 @@ async function ex6() {
   console.log(sum);
 }
 
-//   let sum=0;
-//    for (const obj of result.data) {
-//      debugger;
-//      obj.attributes.discount.data === null? sum+=obj.attributes.price:
-//  sum += obj.attributes.price * obj.attributes.discount.percentage/100
-//  }
-//  console.log(sum)}
-
 ex6();
